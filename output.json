@@ -1,0 +1,692 @@
+{
+    "Adept.jpg": {
+        "name": "Adept",
+        "race": "p",
+        "type": "u"
+    },
+    "Advanced_Ballistics.jpg": {
+        "name": "Advanced_Ballistics",
+        "race": "t",
+        "type": "p"
+    },
+    "Anion_Pulse-Crystals.png": {
+        "name": "Anion_Pulse-Crystals",
+        "race": "p",
+        "type": "p"
+    },
+    "Archon.jpg": {
+        "name": "Archon",
+        "race": "p",
+        "type": "u"
+    },
+    "Armory.jpg": {
+        "name": "Armory",
+        "race": "t",
+        "type": "p"
+    },
+    "Arm_Silo_with_Nuke.jpg": {
+        "name": "Arm_Silo_with_Nuke",
+        "race": "t",
+        "type": "p"
+    },
+    "Assimilator.jpg": {
+        "name": "Assimilator",
+        "race": "p",
+        "type": "b"
+    },
+    "Baneling.jpg": {
+        "name": "Baneling",
+        "race": "z",
+        "type": "u"
+    },
+    "Baneling_nest.jpg": {
+        "name": "Baneling_nest",
+        "race": "z",
+        "type": "u"
+    },
+    "Barracks.jpg": {
+        "name": "Barracks",
+        "race": "t",
+        "type": "b"
+    },
+    "Battlecruiser.jpg": {
+        "name": "Battlecruiser",
+        "race": "t",
+        "type": "u"
+    },
+    "Blink.png": {
+        "name": "Blink",
+        "race": "p",
+        "type": "p"
+    },
+    "Broodling.jpg": {
+        "name": "Broodling",
+        "race": "z",
+        "type": "u"
+    },
+    "Brood_lord.jpg": {
+        "name": "Brood_lord",
+        "race": "z",
+        "type": "u"
+    },
+    "Bunker.jpg": {
+        "name": "Bunker",
+        "race": "t",
+        "type": "b"
+    },
+    "Bunker_update.jpg": {
+        "name": "Bunker_update",
+        "race": "t",
+        "type": "b"
+    },
+    "Caduceus_Reactor.png": {
+        "name": "Caduceus_Reactor",
+        "race": "t",
+        "type": "p"
+    },
+    "Carrier.jpg": {
+        "name": "Carrier",
+        "race": "p",
+        "type": "u"
+    },
+    "Charge.jpg": {
+        "name": "Charge",
+        "race": "p",
+        "type": "p"
+    },
+    "Chrono_Boost.jpg": {
+        "name": "Chrono_Boost",
+        "race": "p",
+        "type": "p"
+    },
+    "Cloak.jpg": {
+        "name": "Cloak",
+        "race": "t",
+        "type": "p"
+    },
+    "Colossus.jpg": {
+        "name": "Colossus",
+        "race": "p",
+        "type": "u"
+    },
+    "Combat_Shield.jpg": {
+        "name": "Combat_Shield",
+        "race": "t",
+        "type": "p"
+    },
+    "Overseer.jpg": {
+        "name": "Overseer",
+        "race": "z",
+        "type": "u"
+    },
+    "Phoenix.jpg": {
+        "name": "Phoenix",
+        "race": "p",
+        "type": "u"
+    },
+    "Photon_cannon.jpg": {
+        "name": "Photon_cannon",
+        "race": "p",
+        "type": "b"
+    },
+    "Plasma_Shields.gif": {
+        "name": "Plasma_Shields",
+        "race": "p",
+        "type": "p"
+    },
+    "Probe.jpg": {
+        "name": "Probe",
+        "race": "p",
+        "type": "u"
+    },
+    "Protoss_Air_Armor.gif": {
+        "name": "Protoss_Air_Armor",
+        "race": "p",
+        "type": "p"
+    },
+    "Protoss_Air_Weapons.gif": {
+        "name": "Protoss_Air_Weapons",
+        "race": "p",
+        "type": "p"
+    },
+    "Pylon.jpg": {
+        "name": "Pylon",
+        "race": "p",
+        "type": "b"
+    },
+    "Queen.jpg": {
+        "name": "Queen",
+        "race": "z",
+        "type": "u"
+    },
+    "Ravager.jpg": {
+        "name": "Ravager",
+        "race": "z",
+        "type": "u"
+    },
+    "Raven.jpg": {
+        "name": "Raven",
+        "race": "t",
+        "type": "u"
+    },
+    "Refinery.jpg": {
+        "name": "Refinery",
+        "race": "t",
+        "type": "b"
+    },
+    "Resonating_Glaives.png": {
+        "name": "Resonating_Glaives",
+        "race": "p",
+        "type": "p"
+    },
+    "Roach.jpg": {
+        "name": "Roach",
+        "race": "z",
+        "type": "u"
+    },
+    "Robotics_bay.jpg": {
+        "name": "Robotics_bay",
+        "race": "p",
+        "type": "b"
+    },
+    "Robotics_facility.jpg": {
+        "name": "Robotics_facility",
+        "race": "p",
+        "type": "b"
+    },
+    "SCV.jpg": {
+        "name": "SCV",
+        "race": "t",
+        "type": "u"
+    },
+    "Sensor_tower.jpg": {
+        "name": "Sensor_tower",
+        "race": "t",
+        "type": "b"
+    },
+    "Sentry.jpg": {
+        "name": "Sentry",
+        "race": "p",
+        "type": "u"
+    },
+    "Shadow_Stride.png": {
+        "name": "Shadow_Stride",
+        "race": "p",
+        "type": "p"
+    },
+    "Shield_battery.jpg": {
+        "name": "Shield_battery",
+        "race": "p",
+        "type": "b"
+    },
+    "Siege_tank.jpg": {
+        "name": "Siege_tank",
+        "race": "t",
+        "type": "u"
+    },
+    "Spawning_pool.jpg": {
+        "name": "Spawning_pool",
+        "race": "z",
+        "type": "b"
+    },
+    "Spine_crawler.jpg": {
+        "name": "Spine_crawler",
+        "race": "z",
+        "type": "b"
+    },
+    "Spire.jpg": {
+        "name": "Spire",
+        "race": "z",
+        "type": "b"
+    },
+    "Spore_crawler.jpg": {
+        "name": "Spore_crawler",
+        "race": "z",
+        "type": "b"
+    },
+    "Stalker.jpg": {
+        "name": "Stalker",
+        "race": "p",
+        "type": "u"
+    },
+    "Stargate.jpg": {
+        "name": "Stargate",
+        "race": "t",
+        "type": "b"
+    },
+    "StimPack.jpg": {
+        "name": "StimPack",
+        "race": "t",
+        "type": "p"
+    },
+    "Storm.jpg": {
+        "name": "Storm",
+        "race": "p",
+        "type": "p"
+    },
+    "Supply_depot.jpg": {
+        "name": "Supply_depot",
+        "race": "t",
+        "type": "b"
+    },
+    "Swarm_host.jpg": {
+        "name": "Swarm_host",
+        "race": "z",
+        "type": "b"
+    },
+    "Tectonic_Destabilizers.png": {
+        "name": "Tectonic_Destabilizers",
+        "race": "t",
+        "type": "p"
+    },
+    "Tempest.jpg": {
+        "name": "Tempest",
+        "race": "p",
+        "type": "u"
+    },
+    "Templar_archives.jpg": {
+        "name": "Templar_archives",
+        "race": "p",
+        "type": "u"
+    },
+    "Terran_Ship_Weapons.gif": {
+        "name": "Terran_Ship_Weapons",
+        "race": "t",
+        "type": "p"
+    },
+    "Terran_Vehicle_and_Ship_Plating.gif": {
+        "name": "Terran_Vehicle_and_Ship_Plating",
+        "race": "t",
+        "type": "p"
+    },
+    "Terran_Vehicle_Weapons.gif": {
+        "name": "Terran_Vehicle_Weapons",
+        "race": "t",
+        "type": "p"
+    },
+    "Thor.jpg": {
+        "name": "Thor",
+        "race": "t",
+        "type": "u"
+    },
+    "Twilight_council.jpg": {
+        "name": "Twilight_council",
+        "race": "p",
+        "type": "b"
+    },
+    "Ultralisk.jpg": {
+        "name": "Ultralisk",
+        "race": "z",
+        "type": "u"
+    },
+    "Ultralisk_cavern.jpg": {
+        "name": "Ultralisk_cavern",
+        "race": "z",
+        "type": "b"
+    },
+    "Viking.jpg": {
+        "name": "Viking",
+        "race": "t",
+        "type": "u"
+    },
+    "Viper.jpg": {
+        "name": "Viper",
+        "race": "z",
+        "type": "u"
+    },
+    "Void_ray.jpg": {
+        "name": "Void_ray",
+        "race": "p",
+        "type": "u"
+    },
+    "Warp_Gate_Transformation.jpg": {
+        "name": "Warp_Gate_Transformation",
+        "race": "p",
+        "type": "p"
+    },
+    "Warp_prism.jpg": {
+        "name": "Warp_prism",
+        "race": "p",
+        "type": "u"
+    },
+    "Weapon_Refit.jpg": {
+        "name": "Weapon_Refit",
+        "race": "t",
+        "type": "p"
+    },
+    "Widow_mine.jpg": {
+        "name": "Widow_mine",
+        "race": "t",
+        "type": "u"
+    },
+    "Zealot.jpg": {
+        "name": "Zealot",
+        "race": "p",
+        "type": "u"
+    },
+    "Zergling.jpg": {
+        "name": "Zergling",
+        "race": "z",
+        "type": "u"
+    },
+    "Ghost.jpg": {
+        "name": "Ghost",
+        "race": "t",
+        "type": "u"
+    },
+    "Ghost_academy.jpg": {
+        "name": "Ghost_academy",
+        "race": "t",
+        "type": "b"
+    },
+    "Gravitic_Boosters.png": {
+        "name": "Gravitic_Boosters",
+        "race": "p",
+        "type": "p"
+    },
+    "Gravitic_Drive.png": {
+        "name": "Gravitic_Drive",
+        "race": "p",
+        "type": "p"
+    },
+    "Greater_spire.jpg": {
+        "name": "Greater_spire",
+        "race": "z",
+        "type": "b"
+    },
+    "Ground_Armor.gif": {
+        "name": "Ground_Armor",
+        "race": "p",
+        "type": "p"
+    },
+    "Ground_Weapons.gif": {
+        "name": "Ground_Weapons",
+        "race": "p",
+        "type": "p"
+    },
+    "Hatchery.jpg": {
+        "name": "Hatchery",
+        "race": "z",
+        "type": "b"
+    },
+    "Hellbat.jpg": {
+        "name": "Hellbat",
+        "race": "t",
+        "type": "u"
+    },
+    "Hellion.jpg": {
+        "name": "Hellion",
+        "race": "t",
+        "type": "u"
+    },
+    "Hi-Sec_Auto_Tracking.png": {
+        "name": "Hi-Sec_Auto_Tracking",
+        "race": "t",
+        "type": "p"
+    },
+    "High_templar.jpg": {
+        "name": "High_templar",
+        "race": "z",
+        "type": "u"
+    },
+    "Hive.jpg": {
+        "name": "Hive",
+        "race": "z",
+        "type": "u"
+    },
+    "Hydralisk.jpg": {
+        "name": "Hydralisk",
+        "race": "z",
+        "type": "u"
+    },
+    "Hydralisk_den.jpg": {
+        "name": "Hydralisk_den",
+        "race": "z",
+        "type": "b"
+    },
+    "Immortal.jpg": {
+        "name": "Immortal",
+        "race": "p",
+        "type": "u"
+    },
+    "Infantry_Armor.gif": {
+        "name": "Infantry_Armor",
+        "race": "t",
+        "type": "p"
+    },
+    "Infantry_Weapons.gif": {
+        "name": "Infantry_Weapons",
+        "race": "t",
+        "type": "p"
+    },
+    "Infestation_pit.jpg": {
+        "name": "Infestation_pit",
+        "race": "z",
+        "type": "b"
+    },
+    "Infestor.jpg": {
+        "name": "Infestor",
+        "race": "z",
+        "type": "u"
+    },
+    "Interceptor.jpg": {
+        "name": "Interceptor",
+        "race": "p",
+        "type": "u"
+    },
+    "Lair.jpg": {
+        "name": "Lair",
+        "race": "z",
+        "type": "b"
+    },
+    "Command_center.jpg": {
+        "name": "Command_center",
+        "race": "t",
+        "type": "b"
+    },
+    "Gateway.jpg": {
+        "name": "Gateway",
+        "race": "p",
+        "type": "b"
+    },
+    "Larva.jpg": {
+        "name": "Larva",
+        "race": "z",
+        "type": "u"
+    },
+    "Overlord.jpg": {
+        "name": "Overlord",
+        "race": "z",
+        "type": "u"
+    },
+    "Starport.jpg": {
+        "name": "Starport",
+        "race": "t",
+        "type": "b"
+    },
+    "Concussive_Shells.jpg": {
+        "name": "Concussive_Shells",
+        "race": "t",
+        "type": "p"
+    },
+    "Corruptor.jpg": {
+        "name": "Corruptor",
+        "race": "z",
+        "type": "u"
+    },
+    "Creep_tumor.jpg": {
+        "name": "Creep_tumor",
+        "race": "z",
+        "type": "u"
+    },
+    "Cybernetics_core.jpg": {
+        "name": "Cybernetics_core",
+        "race": "p",
+        "type": "b"
+    },
+    "Cyclone.jpg": {
+        "name": "Cyclone",
+        "race": "t",
+        "type": "u"
+    },
+    "Dark_shrine.jpg": {
+        "name": "Dark_shrine",
+        "race": "p",
+        "type": "b"
+    },
+    "Disruptor.jpg": {
+        "name": "Disruptor",
+        "race": "p",
+        "type": "u"
+    },
+    "Drone.jpg": {
+        "name": "Drone",
+        "race": "z",
+        "type": "u"
+    },
+    "Engineering_bay.jpg": {
+        "name": "Engineering_bay",
+        "race": "t",
+        "type": "b"
+    },
+    "Enhanced_Shockwaves.jpg": {
+        "name": "Enhanced_Shockwaves",
+        "race": "t",
+        "type": "p"
+    },
+    "Extended_Thermal_Lance.png": {
+        "name": "Extended_Thermal_Lance",
+        "race": "p",
+        "type": "p"
+    },
+    "Extractor.jpg": {
+        "name": "Extractor",
+        "race": "z",
+        "type": "b"
+    },
+    "Factory.jpg": {
+        "name": "Factory",
+        "race": "t",
+        "type": "b"
+    },
+    "Feedback.jpg": {
+        "name": "Feedback",
+        "race": "p",
+        "type": "p"
+    },
+    "Fleet_beacon.jpg": {
+        "name": "Fleet_beacon",
+        "race": "p",
+        "type": "u"
+    },
+    "Flux_Vanes.png": {
+        "name": "Flux_Vanes",
+        "race": "p",
+        "type": "p"
+    },
+    "Forge.jpg": {
+        "name": "Forge",
+        "race": "p",
+        "type": "b"
+    },
+    "Fusion_core.jpg": {
+        "name": "Fusion_core",
+        "race": "t",
+        "type": "b"
+    },
+    "Banshee.jpg": {
+        "name": "Banshee",
+        "race": "t",
+        "type": "u"
+    },
+    "Liberator.jpg": {
+        "name": "Liberator",
+        "race": "t",
+        "type": "u"
+    },
+    "Locust.jpg": {
+        "name": "Locust",
+        "race": "z",
+        "type": "u"
+    },
+    "Marauder.jpg": {
+        "name": "Marauder",
+        "race": "t",
+        "type": "u"
+    },
+    "Marine.jpg": {
+        "name": "Marine",
+        "race": "t",
+        "type": "u"
+    },
+    "Medivac.jpg": {
+        "name": "Medivac",
+        "race": "t",
+        "type": "u"
+    },
+    "Missile_turret.jpg": {
+        "name": "Missile_turret",
+        "race": "t",
+        "type": "b"
+    },
+    "Mothership.jpg": {
+        "name": "Mothership",
+        "race": "p",
+        "type": "u"
+    },
+    "MULE.jpg": {
+        "name": "MULE",
+        "race": "t",
+        "type": "u"
+    },
+    "Mutalisk.jpg": {
+        "name": "Mutalisk",
+        "race": "z",
+        "type": "u"
+    },
+    "Neosteel_Armor.png": {
+        "name": "Neosteel_Armor",
+        "race": "t",
+        "type": "p"
+    },
+    "Nexus.jpg": {
+        "name": "Nexus",
+        "race": "p",
+        "type": "b"
+    },
+    "Nydus_network.jpg": {
+        "name": "Nydus_network",
+        "race": "z",
+        "type": "b"
+    },
+    "Nydus_worm.jpg": {
+        "name": "Nydus_worm",
+        "race": "z",
+        "type": "b"
+    },
+    "Observer.jpg": {
+        "name": "Observer",
+        "race": "p",
+        "type": "u"
+    },
+    "Oracle.jpg": {
+        "name": "Oracle",
+        "race": "p",
+        "type": "u"
+    },
+    "Orbital_command.jpg": {
+        "name": "Orbital_command",
+        "race": "t",
+        "type": "b"
+    },
+    "Reactor.jpg": {
+        "name": "Reactor",
+        "race": "t",
+        "type": "b"
+    },
+    "Tech_Lab.jpg": {
+        "name": "Tech_Lab",
+        "race": "t",
+        "type": "b"
+    }
+}
