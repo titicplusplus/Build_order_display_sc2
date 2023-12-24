@@ -15,13 +15,20 @@ for key, value in data.items():
     place = value["race"] + value["type"]
     render[place] += "\t\t" + value["name"] + "\t\t\t= '" + key + "'\n"
 
+data = ""
+
 for race in ["Terran", "Protoss", "Zerg"]:
-    print(f"class {race}:")
+    data += f"class {race}:\n"
     firstletter = race[0].lower()
-    print("\tclass Structure:")
-    print(render[firstletter + "b"])
-    print("\tclass Units:")
-    print(render[firstletter + "u"])
-    print("\tclass Upgrade:")
-    print(render[firstletter + "u"])
+    data += "\tclass Structure:\n"
+    data += render[firstletter + "b"] + "\n"
+    data += "\tclass Units:\n"
+    data += render[firstletter + "u"] + "\n"
+    data += "\tclass Upgrade:\n"
+    data += render[firstletter + "p"] + "\n"
+
+print(data)
+
+with open("./sc2_elements.py", "w") as f:
+    f.write(data)
 

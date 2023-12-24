@@ -9,8 +9,8 @@
         "race": "t",
         "type": "p"
     },
-    "Anion_Pulse-Crystals.png": {
-        "name": "Anion_Pulse-Crystals",
+    "Anion_Pulse_Crystals.png": {
+        "name": "Anion_Pulse_Crystals",
         "race": "p",
         "type": "p"
     },
@@ -419,8 +419,8 @@
         "race": "t",
         "type": "u"
     },
-    "Hi-Sec_Auto_Tracking.png": {
-        "name": "Hi-Sec_Auto_Tracking",
+    "Sec_Auto_Tracking.png": {
+        "name": "Sec_Auto_Tracking",
         "race": "t",
         "type": "p"
     },
