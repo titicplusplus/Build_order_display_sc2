@@ -2,7 +2,7 @@
 
 ## Image
 
-![App capture, image](./image/capture1.png, "A capture of the app")
+![App capture, image](./image/capture1.png "A capture of the app")
 
 ## Install
 
