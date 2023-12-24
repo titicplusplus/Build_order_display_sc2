@@ -1,5 +1,9 @@
 # Build_order_display_sc2
 
+## Image
+
+![App capture, image](./image/capture1.png, "A capture of the app")
+
 ## Install
 
 You have to install `tkinter` and `pynput` on your computer
@@ -37,4 +41,9 @@ You have to execute the `main.py` file
 python3 main.py
 ```
 
+# To Do
 
+- Add zerg upgrade
+- Add image upgrade of better quality
+- Continue to correct some bug
+- Make easier the processus of build order creation
