@@ -89,7 +89,7 @@ class BoImage:
             ctime = self.__bo[self.__posi][0].encode()
             ctext = str(self.__bo[self.__posi][1])
         else:
-            image = Image.open("../CppPart/image/Black.jpg")
+            image = Image.open("./Black.jpg")
             #self.current_images = ImageTk.PhotoImage(image)
             #self.__image.configure(image=self.current_images)
             ctime = ""
