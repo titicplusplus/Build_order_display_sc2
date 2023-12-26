@@ -108,14 +108,10 @@ class BoImage:
         self.__posi += 1
         self.execute()
 
-
-
 class ImageChangerApp:
     def resize(self, event):
         if event.widget == self.root and \
            (self.width != event.width or self.height != event.height):
-            print(f'{event.height=}, {event.width=}')
-
             self.width, self.height = event.width, event.height
 
             for i in range(len(self.parts)):

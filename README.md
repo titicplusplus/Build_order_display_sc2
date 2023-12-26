@@ -8,42 +8,28 @@
 
 You have to install `tkinter` and `pynput` on your computer
 
-## Make a bo
+## How to use
 
-To make your own build order, you have to create a list of list on the main.py file.
+### Make a Bo
 
-For example, a terran BO:
+To make a bo, have to choose (or create) a build order on [lotv spawningtool](https://lotv.spawningtool.com).
 
-```
+Next, your run the file `LotvToBo.py` by run `python3 LotvToBo.py`.
+After, your copy the build order and put a filename from the lotv web site (see on the image).
 
-# BoTime(minutes, seconds), ex: BoTime(2, 34) -> 2min and 34s
-# The next number is the supply that you have to make the unit/building/upgrade.
+![A capture of the convertor app](./image/capture_lotv_to_bo.png "A capture of the convertor app")
 
-TerranBO = [
-	[BoTime(0, 2), 21, Terran.Structure.Barracks], # [(minutes, seconds), supply, type]
-	[BoTime(0, 44), 28, Terran.Units.Marine], 
-	[BoTime(1, 12), 29, Terran.Upgrade.StimPack],
-]
+### Run the app
 
-```
+Now, you run the `main.py` app by `python3 main.py`, then you select the build order :
 
-Next, you have to change the penultimate line:
+![select bo.png](./image/select_bo.png "A capture of the app")
 
-```
-app = ImageChangerApp(root, bo1) -> app = ImageChangerApp(root, TerranBO)
-```
-
-## To Run
-
-You have to execute the `main.py` file
-
-```
-python3 main.py
-```
+Finally, press `right ctrl` when the game is launch. End !
 
 # To Do
 
-- Add zerg upgrade
-- Add image upgrade of better quality
+- Add zerg upgrade 						(0/100)
+- Add image upgrade of better quality				(0/100)
+- Make easier the processus of build order creation		(30/100)
 - Continue to correct some bug
-- Make easier the processus of build order creation
