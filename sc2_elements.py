@@ -17,6 +17,7 @@ class Terran:
 		Orbital_command			= 'Orbital_command.jpg'
 		Reactor			= 'Reactor.jpg'
 		Tech_Lab			= 'Tech_Lab.jpg'
+		Planetary_Fortress			= 'Planetary_Fortress.jpg'
 
 	class Units:
 		Battlecruiser			= 'Battlecruiser.jpg'

@@ -688,5 +688,10 @@
         "name": "Tech_Lab",
         "race": "t",
         "type": "b"
+    },
+    "Planetary_Fortress.jpg": {
+        "name": "Planetary_Fortress",
+        "race": "t",
+        "type": "b"
     }
 }
