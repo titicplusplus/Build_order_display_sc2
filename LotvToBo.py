@@ -2,30 +2,6 @@ import json
 from difflib import get_close_matches
 import sys
 
-
-lotv2 = """
-  14	  0:18	  Supply Depot x2 (Chrono Boost)	
-  15	  0:41	  Barracks
-  19	  1:28	  Reaper, Orbital Command
-  23	  2:21	  Command Center
-  24	  2:28	  Hellion
-  26	  2:32	  Supply Depot
-  26	  2:35	  Reaper
-  28	  2:47	  Starport
-  29	  2:53	  Hellion
-  32	  3:07	  Barracks Reactor, Refinery
-  33	  3:14	  Factory Tech Lab
-  33	  3:24	  Starport Tech Lab
-  34	  3:35	  Cyclone
-  38	  3:43	  Marine x2
-  40	  3:49	  Raven
-  46	  4:08	  Siege Tank
-  52	  4:19	  Supply Depot, Marine x2
-  59	  4:45	  Siege Tank
-"""
-
-import re
-
 def isSpace(char):
     return char == " " or char == "\t" or char == "\f" or char == "\v"
 
@@ -45,8 +21,6 @@ def newparserLotz(lotv):
         parser.append([])
         k = 0
         while k < len(line):
-            #print(line, getNextChar(line, k))
-
             k  = getNextChar(line, k)
             k1 = getNextSpace(line, k)
 
@@ -81,9 +55,11 @@ def parsePureData(data):
             continue
 
         commands = ("".join(l[2:])).split(",")
-        print(commands)
 
         for command in commands:
+            if len(command) < 2:
+                continue
+
             add_chrono = False
             rep        = 1
 
@@ -91,7 +67,6 @@ def parsePureData(data):
             itEnd = command.find(")")
 
             if itDeb != -1 and itEnd != -1:
-                print(command[itDeb + 1:itEnd], get_close_matches(command[itDeb + 1:itEnd], ["ChronoBoost"])) 
                 if len(get_close_matches(command[itDeb + 1:itEnd], ["ChronoBoost"])) > 0:
                     command = command[:itDeb]
                     add_chrono = True
@@ -109,22 +84,59 @@ def parsePureData(data):
 
     return results
 
-l               = parsePureData(newparserLotz(lotv2))
-words, dictkey  = getlist_data()
-
-for d in l:
-    close_matches = get_close_matches(d[2], words)
-
-    if len(close_matches) == 0:
-        print("Error, can't understand what's mean :", d[2])
-        sys.exit()
-
-    d[2] = dictkey[close_matches[0]]
 
 
-filename = input("file name : ")
+import tkinter as tk
+from tkinter import scrolledtext
 
-with open(filename + ".csv", "w") as f:
+def execute_code(code, filename):
+    # Function to be called when the "Execute" button is clicked
+    l               = parsePureData(newparserLotz(code))
+    words, dictkey  = getlist_data()
+
     for d in l:
+        close_matches = get_close_matches(d[2], words)
+
         print(d)
-        f.write(",".join(d) + "\n")
+        if len(close_matches) == 0:
+            print("Error, can't understand what's mean :", d[2])
+            sys.exit()
+
+        d[2] = dictkey[close_matches[0]]
+
+
+    with open(filename + ".csv", "w") as f:
+        for d in l:
+            print(d)
+            f.write(",".join(d) + "\n")
+
+# Function to get the content of the InputBox and InputLine and call the execute_code function
+def execute():
+    code = input_box.get("1.0", "end-1c")  # Get the content of the InputBox
+    filename = input_line.get()             # Get the content of the InputLine
+    execute_code(code, filename)            # Call the execute_code function with the data
+
+if __name__ == "__main__":
+    # Create the main window
+    window = tk.Tk()
+    window.title("Graphical Interface")
+
+    input_box_label = tk.Label(window, text="The build order:")
+    input_box_label.pack()
+
+    # Create the InputBox (ScrolledText for a text area with scrolling)
+    input_box = scrolledtext.ScrolledText(window, wrap=tk.WORD)
+    input_box.pack(fill=tk.BOTH, expand=True, pady=10)
+
+    # Create the InputLine (Entry for a simple text field)
+    input_line_label = tk.Label(window, text="Filename:")
+    input_line_label.pack()
+    input_line = tk.Entry(window, width=40)
+    input_line.pack(pady=10)
+
+    # Create the "Execute" button
+    execute_button = tk.Button(window, text="Execute", command=execute)
+    execute_button.pack()
+
+    # Start the main loop
+    window.mainloop()
