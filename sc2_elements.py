@@ -18,6 +18,12 @@ class Terran:
 		Reactor			= 'Reactor.jpg'
 		Tech_Lab			= 'Tech_Lab.jpg'
 		Planetary_Fortress			= 'Planetary_Fortress.jpg'
+		Barracks_Reactor			= 'Barracks_Reactor.jpg'
+		Barracks_Tech_Lab			= 'Barracks_Tech_Lab.jpg'
+		Starport_Reactor			= 'Starport_Reactor.jpg'
+		Starport_Tech_Lab			= 'Starport_Tech_Lab.jpg'
+		Factory_Reactor			= 'Factory_Reactor.jpg'
+		Factory_Tech_Lab			= 'Factory_Tech_Lab.jpg'
 
 	class Units:
 		Battlecruiser			= 'Battlecruiser.jpg'
@@ -157,5 +163,24 @@ class Zerg:
 		Mutalisk			= 'Mutalisk.jpg'
 
 	class Upgrade:
-            pass
+		Adrenal_Glands			= 'Adrenal_Glands.png'
+		Anabolic_Synthesis			= 'Anabolic_Synthesis.jpg'
+		Burrow			= 'Burrow.jpg'
+		Carapace			= 'Carapace.gif'
+		Centrifugal_Hooks			= 'Centrifugal_Hooks.png'
+		Chitinous_Plating			= 'Chitinous_Plating.jpg'
+		Pneumatized_Carapace			= 'Pneumatized_Carapace.png'
+		Tunneling_Claws			= 'Tunneling_Claws.png'
+		Glial_Reconstitution			= 'Glial_Reconstitution.jpg'
+		Grooved_Spines			= 'Grooved_Spines.jpg'
+		Flyer_Attacks			= 'Flyer_Attacks.gif'
+		Flyer_Carapace			= 'Flyer_Carapace.gif'
+		Melee_Attacks			= 'Melee_Attacks.gif'
+		Metabolic_Boost			= 'Metabolic_Boost.png'
+		Missile_Attacks			= 'Missile_Attacks.gif'
+		Muscular_Augments			= 'Muscular_Augments.jpg'
+		Mutate_into_Greater_Spire			= 'Mutate_into_Greater_Spire.jpg'
+		Mutate_into_Hive			= 'Mutate_into_Hive.jpg'
+		Mutate_into_Lair			= 'Mutate_into_Lair.jpg'
+		Neural_Parasite			= 'Neural_Parasite.jpg'
 

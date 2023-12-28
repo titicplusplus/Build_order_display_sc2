@@ -693,5 +693,135 @@
         "name": "Planetary_Fortress",
         "race": "t",
         "type": "b"
+    },
+    "Adrenal_Glands.png": {
+        "name": "Adrenal_Glands",
+        "race": "z",
+        "type": "p"
+    },
+    "Anabolic_Synthesis.jpg": {
+        "name": "Anabolic_Synthesis",
+        "race": "z",
+        "type": "p"
+    },
+    "Barracks_Reactor.jpg": {
+        "name": "Barracks_Reactor",
+        "race": "t",
+        "type": "b"
+    },
+    "Barracks_Tech_Lab.jpg": {
+        "name": "Barracks_Tech_Lab",
+        "race": "t",
+        "type": "b"
+    },
+    "Burrow.jpg": {
+        "name": "Burrow",
+        "race": "z",
+        "type": "p"
+    },
+    "Carapace.gif": {
+        "name": "Carapace",
+        "race": "z",
+        "type": "p"
+    },
+    "Centrifugal_Hooks.png": {
+        "name": "Centrifugal_Hooks",
+        "race": "z",
+        "type": "p"
+    },
+    "Chitinous_Plating.jpg": {
+        "name": "Chitinous_Plating",
+        "race": "z",
+        "type": "p"
+    },
+    "Pneumatized_Carapace.png": {
+        "name": "Pneumatized_Carapace",
+        "race": "z",
+        "type": "p"
+    },
+    "Starport_Reactor.jpg": {
+        "name": "Starport_Reactor",
+        "race": "t",
+        "type": "b"
+    },
+    "Starport_Tech_Lab.jpg": {
+        "name": "Starport_Tech_Lab",
+        "race": "t",
+        "type": "b"
+    },
+    "Tunneling_Claws.png": {
+        "name": "Tunneling_Claws",
+        "race": "z",
+        "type": "p"
+    },
+    "Glial_Reconstitution.jpg": {
+        "name": "Glial_Reconstitution",
+        "race": "z",
+        "type": "p"
+    },
+    "Grooved_Spines.jpg": {
+        "name": "Grooved_Spines",
+        "race": "z",
+        "type": "p"
+    },
+    "Factory_Reactor.jpg": {
+        "name": "Factory_Reactor",
+        "race": "t",
+        "type": "b"
+    },
+    "Factory_Tech_Lab.jpg": {
+        "name": "Factory_Tech_Lab",
+        "race": "t",
+        "type": "b"
+    },
+    "Flyer_Attacks.gif": {
+        "name": "Flyer_Attacks",
+        "race": "z",
+        "type": "p"
+    },
+    "Flyer_Carapace.gif": {
+        "name": "Flyer_Carapace",
+        "race": "z",
+        "type": "p"
+    },
+    "Melee_Attacks.gif": {
+        "name": "Melee_Attacks",
+        "race": "z",
+        "type": "p"
+    },
+    "Metabolic_Boost.png": {
+        "name": "Metabolic_Boost",
+        "race": "z",
+        "type": "p"
+    },
+    "Missile_Attacks.gif": {
+        "name": "Missile_Attacks",
+        "race": "z",
+        "type": "p"
+    },
+    "Muscular_Augments.jpg": {
+        "name": "Muscular_Augments",
+        "race": "z",
+        "type": "p"
+    },
+    "Mutate_into_Greater_Spire.jpg": {
+        "name": "Mutate_into_Greater_Spire",
+        "race": "z",
+        "type": "p"
+    },
+    "Mutate_into_Hive.jpg": {
+        "name": "Mutate_into_Hive",
+        "race": "z",
+        "type": "p"
+    },
+    "Mutate_into_Lair.jpg": {
+        "name": "Mutate_into_Lair",
+        "race": "z",
+        "type": "p"
+    },
+    "Neural_Parasite.jpg": {
+        "name": "Neural_Parasite",
+        "race": "z",
+        "type": "p"
     }
 }
