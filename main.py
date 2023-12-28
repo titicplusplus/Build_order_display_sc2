@@ -1,5 +1,4 @@
 import tkinter as tk
-from PIL import Image, ImageTk
 
 # from ttkthemes import ThemedTk
 
@@ -12,109 +11,9 @@ from sc2_elements import *
 import json
 import os
 
-DARK_BACKGROUND_COLOR   = "#2E2E2E"
-TEXT_COLOR              = "white"
-
-ORBITRO                 = None
-
-def StructToPaths(data):
-    return f"./image_final/" + data
-
-class BoTime:
-    def __init__(self, minutes, seconds):
-        self.__minutes = minutes
-        self.__seconds = seconds
-
-    def parse(self, data):
-        spliter = data.split(":")
-
-        self.__seconds = int(spliter[0])
-        self.__minutes = int(spliter[1])
-
-    def encode(self):
-        flux = ""
-
-        if self.__minutes < 10:
-            flux += "0"
-        flux += str(self.__minutes) + ":"
-
-        if self.__seconds < 10:
-            flux += "0"
-        flux += str(self.__seconds)
-
-        return flux
-
-    def getTime(self):
-        return (self.__minutes, self.__seconds)
-
-    def getTimeSeconds(self):
-        return self.__minutes*60 + self.__seconds
-
-def diffBoTime(t1, t2):
-    m1, s1 = t1.getTime()
-    m2, s2 = t2.getTime()
-
-    total1 = m1*60 + s1
-    total2 = m2*60 + s2
-
-    return total2 - total1
-
-
-
-class BoImage:
-    def __init__(self, posi, root, bo, column):
-        self.__root  = root
-        self.__bo    = bo
-        self.__image = tk.Label(root)
-
-        self.__image.grid(row = 0, column = column)
-        
-        self.__posi   = posi
-
-        self.__time  = tk.Label(root, text="", bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
-        self.__time.grid(row = 1, column = column)
-
-        self.__suply = tk.Label(root, text="", bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
-        self.__suply.grid(row = 2, column = column)
-
-        self.__time.config(font=("Ubuntu Light", 44))
-        self.__suply.config(font=("Ubuntu Light", 44))
-
-    def execute(self):
-        #print(self.__root.winfo_width(), self.__root.winfo_height())
-
-        size  = int((self.__root.winfo_width()/5.0)*0.9)
-
-        if size < 10:
-            size = 128
-
-        image = None
-        ctime = ""
-        ctext = ""
-
-        
-        if self.__posi >= 0 and self.__posi < len(self.__bo):
-            image = Image.open(StructToPaths(self.__bo[self.__posi][2]))
-            
-            ctime = self.__bo[self.__posi][0].encode()
-            ctext = str(self.__bo[self.__posi][1])
-        else:
-            image = Image.open("./Black.jpg")
-            #self.current_images = ImageTk.PhotoImage(image)
-            #self.__image.configure(image=self.current_images)
-            ctime = ""
-            ctext = ""
-            
-        image = image.resize((size, size))
-        self.current_images = ImageTk.PhotoImage(image)
-        self.__image.configure(image=self.current_images)
-
-        self.__time["text"] = ctime
-        self.__suply["text"] = ctext
-
-    def advance(self):
-        self.__posi += 1
-        self.execute()
+from BoTime import *
+from BoImage import *
+from config_ui import *
 
 class ImageChangerApp:
     def resize(self, event):
@@ -216,8 +115,6 @@ def openFilename(filename):
 
     return bo
 
-#bo = openFilename("./out.csv")
-
 def openBo():
     bos = [files for files in os.listdir("./") if files[-4:] == ".csv"]
     dictbos = {}
@@ -248,13 +145,6 @@ def openBo():
 def on_key_release(key):
     if key == keyboard.Key.ctrl_r:
         return False
-
-def openFont():
-    global ORBITRO
-    # Charger la police personnalisée
-    ORBITRO = font.Font(family="CustomFont", name="custom_font", exists=False)
-    ORBITRO.actual()
-    ORBITRO = ORBITRO.createfont(fontdata=open("./Orbitro.ttf", "rb").read())
 
 if __name__ == "__main__":
     
