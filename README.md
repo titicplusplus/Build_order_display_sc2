@@ -29,7 +29,7 @@ Finally, press `right ctrl` when the game is launch. End !
 
 # To Do
 
-- Add zerg upgrade 						(0/100)
 - Add image upgrade of better quality				(0/100)
-- Make easier the processus of build order creation		(30/100)
+- Make easier the processus of build order creation		(40/100)
 - Continue to correct some bug
+- Merge the LotvToBo.py and main.py files to only one file (0/100)

@@ -1,13 +1,21 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
+# from ttkthemes import ThemedTk
+
 from pynput import keyboard
+from tkinter import font
 
 import time
 
 from sc2_elements import *
 import json
 import os
+
+DARK_BACKGROUND_COLOR   = "#2E2E2E"
+TEXT_COLOR              = "white"
+
+ORBITRO                 = None
 
 def StructToPaths(data):
     return f"./image_final/" + data
@@ -59,18 +67,18 @@ class BoImage:
         self.__bo    = bo
         self.__image = tk.Label(root)
 
-        self.__image.grid(row = 0, column = column, sticky="nsew")
+        self.__image.grid(row = 0, column = column)
         
         self.__posi   = posi
 
-        self.__time  = tk.Label(root, text="")
-        self.__time.grid(row = 1, column = column, sticky="nsew")
+        self.__time  = tk.Label(root, text="", bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__time.grid(row = 1, column = column)
 
-        self.__suply = tk.Label(root, text="")
-        self.__suply.grid(row = 2, column = column, sticky="nsew")
+        self.__suply = tk.Label(root, text="", bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__suply.grid(row = 2, column = column)
 
-        self.__time.config(font=("Courier", 44))
-        self.__suply.config(font=("Courier", 44))
+        self.__time.config(font=("Ubuntu Light", 44))
+        self.__suply.config(font=("Ubuntu Light", 44))
 
     def execute(self):
         #print(self.__root.winfo_width(), self.__root.winfo_height())
@@ -136,7 +144,7 @@ class ImageChangerApp:
 
         self.__posi = 0
 
-        self.time_label = tk.Label(self.root, text="0:00:00", font=("Helvetica", 24))
+        self.time_label = tk.Label(self.root, text="0:00", font=("Ubuntu Light", 34), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
         self.time_label.grid(row = 3, column = 2)
         
         self.root.after(50, self.change_images_periodically)  # Change images every 5 seconds
@@ -177,7 +185,6 @@ def openFilename(filename):
             print("Error, size not correct :", data)
             continue
 
-        #print(data)
         bo.append([BoTime(int(data[1][:data[1].find(":")]), int(data[1][data[1].find(":") + 1:])), int(data[0]), None])
         key = data[2]
         name = json_data[key]["name"]
@@ -220,6 +227,7 @@ def openBo():
         print(f"{chr(97 + i)} : {bos[i]}")
         dictbos[ chr(97 + i) ] = bos[i]
 
+    print("Key seletecd: ")
     filename = ""
     with keyboard.Events() as events:
         for event in events:
@@ -231,6 +239,7 @@ def openBo():
                     filename = dictbos[key]
                     break
 
+    print("")
 
     return openFilename(filename), filename
 
@@ -239,6 +248,13 @@ def openBo():
 def on_key_release(key):
     if key == keyboard.Key.ctrl_r:
         return False
+
+def openFont():
+    global ORBITRO
+    # Charger la police personnalisée
+    ORBITRO = font.Font(family="CustomFont", name="custom_font", exists=False)
+    ORBITRO.actual()
+    ORBITRO = ORBITRO.createfont(fontdata=open("./Orbitro.ttf", "rb").read())
 
 if __name__ == "__main__":
     
@@ -255,6 +271,7 @@ if __name__ == "__main__":
 
     # replace either screen_width and screen_height to change the appropriate dimension
     root.geometry(f"{screen_width}x{screen_height}")
+    root.configure(bg=DARK_BACKGROUND_COLOR)
 
     root.title(filename)
     app = ImageChangerApp(root, bo)
