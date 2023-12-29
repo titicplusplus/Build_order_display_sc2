@@ -2,8 +2,13 @@ import tkinter as tk
 from tkinter import ttk
 
 import platform
+import open_data
+
+import bo_line as BoLine
 
 from config_ui import *
+
+data = None
 
 class ScrollableFrame(tk.Frame):
     def __init__(self, root):
@@ -110,57 +115,39 @@ class Application:
             self.root.bind_all("<Button-5>", self.__scrollable_frame.downMouseWheel)
         else:
             self.root.bind_all("<MouseWheel>", self.__scrollable_frame.onMouseWheel)
-        
+
+        self.boLine = []
 
     def addLegend(self):
         self.__scrollable_frame.addLegend()
 
     def ajouter_ligne(self):
-        # Ajoutez une nouvelle ligne à la zone de défilement
-        ligne = len(self.__scrollable_frame.frame.grid_slaves()) // 7 + 1
+        global data
+        self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, data, len(self.boLine) + 1))
 
-        # Numéro de ligne
-        tk.Label(self.__scrollable_frame.frame, text=str(ligne), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR) \
-            .grid(row=ligne, column=0, sticky="nsew", pady=10)
-
-        entry = tk.Entry(self.__scrollable_frame.frame, width=10, bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR, insertbackground=TEXT_COLOR,
-                validate="key", validatecommand=(root.register(self.validate_numeric), '%P'))
-        entry.grid(row=ligne, column=1)
-
-        entry = tk.Entry(self.__scrollable_frame.frame, width=10, bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR, justify="right",
-                validate="key", validatecommand=(root.register(self.validate_numeric), '%P'))
-        entry.grid(row=ligne, column=2, sticky="e")
-
-        entry = tk.Label(self.__scrollable_frame.frame, text=":", bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
-        entry.grid(row=ligne, column=3, padx=10)
-
-        entry = tk.Entry(self.__scrollable_frame.frame, width=10, bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR,
-                validate="key", validatecommand=(root.register(self.validate_numeric), '%P'))
-        entry.grid(row=ligne, column=4, sticky="w")
-        
-        # Combobox
-        
-        combobox = ttk.Combobox(self.__scrollable_frame.frame, values=["Terran", "Protoss", "Zerg"])
-        combobox.set("Terran")  # Définissez la valeur par défaut si nécessaire
-        combobox.grid(row=ligne, column=col, sticky="nsew")
-
-        # Ajustez la taille de la zone de défilement
+        posi = len(self.boLine) - 1
+        self.boLine[-1].remove.config(command=lambda: self.remove_element(posi))
         self.__scrollable_frame.onFrameConfigure(None)
 
-    def validate_numeric(self, value):
-        try:
-            if value:
-                float(value)
-            return True
-        except ValueError:
-            return False
+    def remove_element(self, i):
+        self.boLine[i].destroy()
+        self.boLine.pop(i)
+        
+        for j in range(i, len(self.boLine)):
+            self.boLine[j].setLineMove(-1)
 
+        for j in range(0, len(self.boLine)):
+            self.boLine[j].remove.config(command=lambda: self.remove_element(j))
+
+        self.__scrollable_frame.onFrameConfigure(None)
 
     def importer_lotv(self):
         # Logique pour importer depuis lotv
         print("Import depuis lotv")
 
 if __name__ == "__main__":
+    data = open_data.make_data()
+
     root = tk.Tk()
 
     screen_width = root.winfo_screenwidth()
