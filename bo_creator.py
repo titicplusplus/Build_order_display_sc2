@@ -1,12 +1,21 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import font
+from tkinter import messagebox
 
 import platform
-import open_data
+#import open_data
 
 import bo_line as BoLine
+import csv_files
 
 from config_ui import *
+from ImportLotv import *
+
+from bo_delete import *
+import os
+
+import json_manip
 
 data = None
 
@@ -80,35 +89,50 @@ class ScrollableFrame(tk.Frame):
         self.canvas.yview_scroll(1, "units")
 
 class Application:
-    def __init__(self, root):
+    def __init__(self, root, data, dataRace, text="", filename=""):
+        self.data = data
+        self.dataRace = dataRace
         self.root = root
         self.root.title("Interface Graphique")
 
         self.root.grid_rowconfigure(1, weight=1)
-        self.root.grid_columnconfigure(0, weight=1)
-        self.root.grid_columnconfigure(1, weight=1)
 
-        # Première partie avec un label et une entry pour le nom du fichier
-        self.__boname = tk.Label(root, text="Bo's name : ", font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
-        self.__boname.grid(row=0, column=0, sticky="e")
+        for i in range(0, 5):
+            self.root.grid_columnconfigure(i, weight=1)
 
-        self.__filename_entry = tk.Entry(root)
-        self.__filename_entry.grid(row=0, column=1, pady=50)
+        # 
+        self.__boname = tk.Label(root, text="Build order name : ", font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__boname.grid(row=0, column=0, columnspan=2, sticky="e", pady=50)
 
-        # Deuxième partie avec une zone de défilement contenant les widgets
+        self.__filename_entry = tk.Entry(root, text=text)
+        self.__filename_entry.grid(row=0, column=2, columnspan=2, padx=10, pady=40, sticky="nsew")
+        self.__filename_entry.configure(font=font.Font(size=16))
+
+        #
         self.__scrollable_frame = ScrollableFrame(root)
-        self.__scrollable_frame.grid(row=1, column=0, columnspan=2, sticky="nsew", pady=20, padx=20)
+        self.__scrollable_frame.grid(row=1, column=0, columnspan=5, sticky="nsew", pady=20, padx=20)
 
-        # Troisième partie avec un bouton "Ajouter"
-        self.__addline = tk.Button(root, text="Ajouter", command=self.ajouter_ligne,
+        #
+        self.__addline = tk.Button(root, text="Add line", command=self.ajouter_ligne,
                 font=("Ubuntu Light", 15), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
         self.__addline.grid(row=2, column=0, pady=10)
+        
+        self.__sort    =  tk.Button(root, text="Sort by time", command=self.sorts_lines,
+                font=("Ubuntu Light", 15), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__sort.grid(row=2, column=1, pady=10)
 
-        # Quatrième partie avec un bouton "Import from lotv"
+        self.__save    =  tk.Button(root, text="Save build order", command=self.save,
+                font=("Ubuntu Light", 15), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__save.grid(row=2, column=2, pady=10)
+
+        #
         self.__import = tk.Button(root, text="Import from lotv", command=self.importer_lotv,
                 font=("Ubuntu Light", 15), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
-        self.__import.grid(row=2, column=1, pady=20)
+        self.__import.grid(row=2, column=3, pady=20)
 
+        self.__delete =  tk.Button(root, text="Delete build order", command=self.remove_bo,
+                font=("Ubuntu Light", 15), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__delete.grid(row=2, column=4, pady=10)
         
         if platform.system() == 'Linux':
             self.root.bind_all("<Button-4>", self.__scrollable_frame.upMouseWheel)
@@ -117,6 +141,9 @@ class Application:
             self.root.bind_all("<MouseWheel>", self.__scrollable_frame.onMouseWheel)
 
         self.boLine = []
+
+        if filename != "":
+            self.open_filename(filename)
 
     def addLegend(self):
         self.__scrollable_frame.addLegend()
@@ -141,21 +168,97 @@ class Application:
 
         self.__scrollable_frame.onFrameConfigure(None)
 
+    def sorts_lines(self):
+        self.boLine.sort(key = lambda bo: bo.getTime())
+
+        for j in range(0, len(self.boLine)):
+            self.boLine[j].remove.config(command=lambda: self.remove_element(j))
+            self.boLine[j].setLine(j + 1)
+
+    def save(self):
+        if len(self.__filename_entry.get()) == 0:
+            messagebox.showerror("Erreur", "Please enter a build order name")
+            return
+
+        self.sorts_lines()
+        data = []
+
+        for i in range(len(self.boLine)):
+            data.append(self.boLine[i].getData())
+
+            if data[i][1] == "" or data[i][2] == "" or data[i][3] == "":
+                messagebox.showerror("Erreur", f"Please, complete the {i+1} line.")
+                return
+
+        csv_files.export_bo_creator(data, self.__filename_entry.get())
+        messagebox.showinfo("Information", "The build order is saved !")
+
     def importer_lotv(self):
-        # Logique pour importer depuis lotv
-        print("Import depuis lotv")
+        global data
+        dialog = ImportLotvBo(self.root, "Import Lotv build order")
+        self.root.wait_window(dialog)
+
+        if dialog.result is not None:
+            #print("ui")
+            #print(dialog.result)
+
+            for line in dialog.result:
+                self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, data, len(self.boLine) + 1))
+
+                posi = len(self.boLine) - 1
+                self.boLine[-1].remove.config(command=lambda: self.remove_element(posi))
+                self.boLine[-1].setData(line)
+            self.__scrollable_frame.onFrameConfigure(None)
+            self.sorts_lines()
+
+    def open_filename(self, filename):
+        global data
+        lines = ""
+        with open(filename, "r") as f:
+            lines = f.read().split("\n")
+
+        for line in lines:
+            d = line.split(",")
+
+            key = json_manip.get_key_from_name(d[3], self.data)
+
+            #print(d, key)
+            d[3] = [self.data[key]["name"], self.data[key]["race"], self.data[key]["type"]]
+
+            self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, data, len(self.boLine) + 1))
+            posi = len(self.boLine) - 1
+            self.boLine[-1].remove.config(command=lambda: self.remove_element(posi))
+            self.boLine[-1].setData(d)
+        self.__scrollable_frame.onFrameConfigure(None)
+
+
+
+
+    def remove_bo(self):
+        dialog = DeleteBo(self.root)
+        self.root.wait_window(dialog)
+
+        if dialog.result == True:
+            if os.path.exists("./config_bo/" + self.__filename_entry.get() + ".csv"):
+                print("remove")
+                os.remove("./config_bo/" + self.__filename_entry.get() + ".csv")
+            else:
+                print(f"file doesn't exsits: ./config_bo/{self.__filename_entry.get()}.csv")
+
+
+
 
 if __name__ == "__main__":
-    data = open_data.make_data()
+    data = json_manip.make_data()
 
     root = tk.Tk()
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
 
-    root.geometry(f"{screen_width}x{screen_height}")
     root.configure(bg=DARK_BACKGROUND_COLOR)
 
-    app = Application(root)
+    app = Application(root, json_manip.openJson(), data, text="test", filename="config_bo/test.csv")
     app.addLegend()
+    root.geometry(f"{screen_width}x{screen_height}")
     root.mainloop()
