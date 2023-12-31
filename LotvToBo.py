@@ -91,7 +91,7 @@ def execute_code(code):
     for d in l:
         close_matches = get_close_matches(d[3], words)
 
-        print(d)
+        #print(d)
         if len(close_matches) == 0:
             print("Error, can't understand what's mean :", d[2])
         else:

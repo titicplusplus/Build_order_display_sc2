@@ -1,7 +1,5 @@
 import tkinter as tk
 
-# from ttkthemes import ThemedTk
-
 from pynput import keyboard
 from tkinter import font
 
@@ -15,154 +13,114 @@ from BoTime import *
 from BoImage import *
 from config_ui import *
 
-class ImageChangerApp:
-    def resize(self, event):
-        if event.widget == self.root and \
-           (self.width != event.width or self.height != event.height):
-            self.width, self.height = event.width, event.height
+import os
 
-            for i in range(len(self.parts)):
-                self.parts[i].execute()
+import bo_creator
 
+import json_manip
 
-    def __init__(self, root, bo):
-        self.__starttime = time.time()
-        self.__bo = bo
+class Menu:
+    def __init__(self, root):
         self.root = root
-        self.width, self.height = self.root.winfo_width(), self.root.winfo_height()
-        root.bind("<Configure>", self.resize)
+        self.draw_elements()
 
-        self.parts = [BoImage(i, root, bo, i + 3) for i in range(-3, 2)]
+    def draw_elements(self):
+        self.__run = tk.Button(self.root, text="Run a build order", command=self.runBuild, padx=40, pady=20,
+                font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__run.pack(padx=10, pady=10, expand=True)
 
-        self.change_images()
+        self.__open_bo = tk.Button(self.root, text="Edit a build order", command=self.openBo, padx=40, pady=20,
+                font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__open_bo.pack(padx=10, pady=10, expand=True)
 
-        # Configuration des lignes et colonnes pour qu'elles s'étendent
-        for i in range(5):
-            self.root.grid_rowconfigure(i, weight=1)
-            self.root.grid_columnconfigure(i, weight=1)
+        self.__create_bo = tk.Button(self.root, text="Create a build order", command=self.createBo, padx=40, pady=20,
+                font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__create_bo.pack(padx=10, pady=10, expand=True)
 
-        self.__posi = 0
+    def remove_elements(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
 
-        self.time_label = tk.Label(self.root, text="0:00", font=("Ubuntu Light", 34), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
-        self.time_label.grid(row = 3, column = 2)
-        
-        self.root.after(50, self.change_images_periodically)  # Change images every 5 seconds
+    def get_files(self):
+        self.__buttons = []
 
-    def change_images(self):
-        for i in range(len(self.parts)):
-            self.parts[i].advance()
+        self.files = os.listdir("./config_bo/")
 
-    def change_images_periodically(self):
-        self.__laspetime = time.time() - self.__starttime
-        self.time_label.config(text=f"{int(self.__laspetime//60)}:{int(self.__laspetime%60):02}")
-        
-        if self.__posi < len(self.__bo):
-            #print(self.__bo[self.__posi][0].getTimeSeconds(), self.__laspetime)
-            if self.__bo[self.__posi][0].getTimeSeconds() <= self.__laspetime:
-                self.change_images()
-                self.__posi += 1
+        tk.Label(self.root, text="Choose the build order", font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR) \
+            .pack(pady=100)
 
-        self.root.after(50, self.change_images_periodically)  # Change images every 5 seconds
+        if self.files:
+            scrollbar = tk.Scrollbar(self.root, orient="vertical")
 
+            canvas = tk.Canvas(self.root, borderwidth=10, background=DARK_BACKGROUND_COLOR, yscrollcommand=scrollbar.set)
+            canvas.pack(side="top", fill="both", expand=True)
 
-def openJson():
-    data = {}
-    with open("output.json", 'r') as json_file:
-        data = json.load(json_file)
-    return data
+            scrollbar.config(command=canvas.yview)
+            scrollbar.pack(side="right", fill="y")
 
-def openFilename(filename):
-    lines = ""
-    with open(filename, "r") as f:
-        lines = f.read().split("\n")
+            frame = tk.Frame(canvas, background=DARK_BACKGROUND_COLOR)
+            canvas.create_window((5, 5), window=frame, anchor="center")
 
-    json_data = openJson()
-    bo = []
-    for line in lines:
-        data = line.split(",")
-        if len(data) != 3:
-            print("Error, size not correct :", data)
-            continue
+            screen_width = self.root.winfo_screenwidth()
 
-        bo.append([BoTime(int(data[1][:data[1].find(":")]), int(data[1][data[1].find(":") + 1:])), int(data[0]), None])
-        key = data[2]
-        name = json_data[key]["name"]
+            for i, filename in enumerate(self.files):
+                self.__buttons.append(tk.Button(frame, text=filename[0:-4], command=lambda param=i: self.chooseFiles(param), padx=40, pady=20, width=100,
+                    font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR))
+                self.__buttons[-1].pack(pady=50, padx=100, side="top")
 
-        ctype = None
+            frame.update_idletasks()
+            canvas.configure(scrollregion=canvas.bbox("all"))
+        else:
+            tk.Label(self.root, text="Please create a build order (cancel -> create new build order)",
+                    font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR) \
+                .pack(pady=100)
 
-        if json_data[key]["race"] == 'p':
-            if json_data[key]["type"] == 'u':
-                ctype = getattr(Protoss.Units, name)
-            elif json_data[key]["type"] == 'b':
-                ctype = getattr(Protoss.Structure, name)
-            elif json_data[key]["type"] == 'p':
-                ctype = getattr(Protoss.Upgrade, name)
-        elif json_data[key]["race"] == 't':
-            if json_data[key]["type"] == 'u':
-                ctype = getattr(Terran.Units, name)
-            elif json_data[key]["type"] == 'b':
-                ctype = getattr(Terran.Structure, name)
-            elif json_data[key]["type"] == 'p':
-                ctype = getattr(Terran.Upgrade, name)
-        elif json_data[key]["race"] == 'z':
-            if json_data[key]["type"] == 'u':
-                ctype = getattr(Zerg.Units, name)
-            elif json_data[key]["type"] == 'b':
-                ctype = getattr(Zerg.Structure, name)
-            elif json_data[key]["type"] == 'p':
-                ctype = getattr(Zerg.Upgrade, name)
-        bo[-1][-1] = ctype
+        self.__cancel = tk.Button(self.root, text="Cancel", command=self.cancel, padx=40, pady=20, width=100,
+            font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__cancel.pack(pady=30, side="bottom")
 
-    return bo
+    def cancel(self):
+        self.remove_elements()
+        self.draw_elements()
 
-def openBo():
-    bos = [files for files in os.listdir("./") if files[-4:] == ".csv"]
-    dictbos = {}
+    def runBuild(self):
+        self.remove_elements()
+        self.get_files()
+        self.typeW = "RUN"
 
-    print("Select your bo (enter touch): ")
-    for i in range(len(bos)):
-        print(f"{chr(97 + i)} : {bos[i]}")
-        dictbos[ chr(97 + i) ] = bos[i]
+    def openBo(self):
+        self.remove_elements()
+        self.get_files()
+        self.typeW = "OPEN"
 
-    print("Key seletecd: ")
-    filename = ""
-    with keyboard.Events() as events:
-        for event in events:
-            key = str(event.key)
-            if len(key) == 3:
-                key = key[1]
+    def createBo(self):
+        self.remove_elements()
 
-                if key in dictbos.keys():
-                    filename = dictbos[key]
-                    break
+        app = bo_creator.Application(self.root, json_manip.openJson(), json_manip.make_data())
+        app.addLegend()
 
-    print("")
-
-    return openFilename(filename), filename
+    def chooseFiles(self, i):
+        self.remove_elements()
+        if self.typeW == "OPEN":
+            app = bo_creator.Application(self.root, json_manip.openJson(), json_manip.make_data(), text=self.files[i][0:-4], filename="config_bo/" + self.files[i])
+            app.addLegend()
 
 
-
-def on_key_release(key):
-    if key == keyboard.Key.ctrl_r:
-        return False
-
-if __name__ == "__main__":
-    
-    bo, filename = openBo()
-
-    print("Wait for key ctrl right to start")
-    with keyboard.Listener(on_release=on_key_release) as listener:
-        listener.join()
-
+def main():
     root = tk.Tk()
+
+    root.title("Build Order displayer")
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
-
-    # replace either screen_width and screen_height to change the appropriate dimension
+    
     root.geometry(f"{screen_width}x{screen_height}")
     root.configure(bg=DARK_BACKGROUND_COLOR)
 
-    root.title(filename)
-    app = ImageChangerApp(root, bo)
+    menu = Menu(root)
+
     root.mainloop()
+
+
+if __name__ == "__main__":
+    main()

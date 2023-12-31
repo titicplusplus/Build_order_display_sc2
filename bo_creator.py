@@ -13,11 +13,11 @@ from config_ui import *
 from ImportLotv import *
 
 from bo_delete import *
+from bo_ask_save import *
 import os
 
 import json_manip
-
-data = None
+import main
 
 class ScrollableFrame(tk.Frame):
     def __init__(self, root):
@@ -104,9 +104,18 @@ class Application:
         self.__boname = tk.Label(root, text="Build order name : ", font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
         self.__boname.grid(row=0, column=0, columnspan=2, sticky="e", pady=50)
 
+
         self.__filename_entry = tk.Entry(root, text=text)
         self.__filename_entry.grid(row=0, column=2, columnspan=2, padx=10, pady=40, sticky="nsew")
         self.__filename_entry.configure(font=font.Font(size=16))
+
+        self.__filename_entry.delete(0, tk.END)
+        self.__filename_entry.insert(0, text)
+
+        self.__quit  = tk.Button(root, text="Quit", command=self.quit,
+                font=("Ubuntu Light", 15), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
+        self.__quit.grid(row=0, column=4, pady=10)
+
 
         #
         self.__scrollable_frame = ScrollableFrame(root)
@@ -149,8 +158,7 @@ class Application:
         self.__scrollable_frame.addLegend()
 
     def ajouter_ligne(self):
-        global data
-        self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, data, len(self.boLine) + 1))
+        self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, self.dataRace, len(self.boLine) + 1))
 
         posi = len(self.boLine) - 1
         self.boLine[-1].remove.config(command=lambda: self.remove_element(posi))
@@ -194,7 +202,6 @@ class Application:
         messagebox.showinfo("Information", "The build order is saved !")
 
     def importer_lotv(self):
-        global data
         dialog = ImportLotvBo(self.root, "Import Lotv build order")
         self.root.wait_window(dialog)
 
@@ -203,7 +210,7 @@ class Application:
             #print(dialog.result)
 
             for line in dialog.result:
-                self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, data, len(self.boLine) + 1))
+                self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, self.dataRace, len(self.boLine) + 1))
 
                 posi = len(self.boLine) - 1
                 self.boLine[-1].remove.config(command=lambda: self.remove_element(posi))
@@ -212,7 +219,6 @@ class Application:
             self.sorts_lines()
 
     def open_filename(self, filename):
-        global data
         lines = ""
         with open(filename, "r") as f:
             lines = f.read().split("\n")
@@ -222,10 +228,9 @@ class Application:
 
             key = json_manip.get_key_from_name(d[3], self.data)
 
-            #print(d, key)
             d[3] = [self.data[key]["name"], self.data[key]["race"], self.data[key]["type"]]
 
-            self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, data, len(self.boLine) + 1))
+            self.boLine.append(BoLine.BoLine(self.__scrollable_frame.frame, self.dataRace, len(self.boLine) + 1))
             posi = len(self.boLine) - 1
             self.boLine[-1].remove.config(command=lambda: self.remove_element(posi))
             self.boLine[-1].setData(d)
@@ -245,11 +250,29 @@ class Application:
             else:
                 print(f"file doesn't exsits: ./config_bo/{self.__filename_entry.get()}.csv")
 
+            self.remove_elements()
+            menu = main.Menu(self.root)
+
+    def remove_elements(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+
+    def quit(self):
+        dialog = SaveBo(self.root)
+        self.root.wait_window(dialog)
+
+        if dialog.result == True:
+            self.save()
+
+        self.remove_elements()
+        menu = main.Menu(self.root)
+
 
 
 
 if __name__ == "__main__":
-    data = json_manip.make_data()
+    #data = json_manip.make_data()
 
     root = tk.Tk()
 
@@ -258,7 +281,7 @@ if __name__ == "__main__":
 
     root.configure(bg=DARK_BACKGROUND_COLOR)
 
-    app = Application(root, json_manip.openJson(), data, text="test", filename="config_bo/test.csv")
+    app = Application(root, json_manip.openJson(), json_manip.make_data(), text="test", filename="config_bo/test.csv")
     app.addLegend()
     root.geometry(f"{screen_width}x{screen_height}")
     root.mainloop()
