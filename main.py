@@ -16,6 +16,7 @@ from config_ui import *
 import os
 
 import bo_creator
+import bo_displayer
 
 import json_manip
 
@@ -104,6 +105,9 @@ class Menu:
         if self.typeW == "OPEN":
             app = bo_creator.Application(self.root, json_manip.openJson(), json_manip.make_data(), text=self.files[i][0:-4], filename="config_bo/" + self.files[i])
             app.addLegend()
+        elif self.typeW == "RUN":
+            bo = bo_displayer.openBoFilename("config_bo/" + self.files[i])
+            app = bo_displayer.ImageChangerApp(self.root, bo)
 
 
 def main():
