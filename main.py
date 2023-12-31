@@ -38,6 +38,11 @@ class Menu:
                 font=("Ubuntu Light", 20), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR)
         self.__create_bo.pack(padx=10, pady=10, expand=True)
 
+        self.root.bind("<Configure>", self.nothing)
+
+    def nothing(self, event):
+        pass
+
     def remove_elements(self):
         for widget in self.root.winfo_children():
             widget.destroy()
@@ -102,6 +107,7 @@ class Menu:
 
     def chooseFiles(self, i):
         self.remove_elements()
+
         if self.typeW == "OPEN":
             app = bo_creator.Application(self.root, json_manip.openJson(), json_manip.make_data(), text=self.files[i][0:-4], filename="config_bo/" + self.files[i])
             app.addLegend()

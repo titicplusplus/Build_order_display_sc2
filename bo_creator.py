@@ -40,7 +40,6 @@ class ScrollableFrame(tk.Frame):
         self.canvas_window = self.canvas.create_window((4,4), window=self.frame, anchor="n", 
                                                       tags="self.frame")
         
-
         self.frame.bind("<Configure>", self.onFrameConfigure)
 
 
@@ -93,7 +92,6 @@ class Application:
         self.data = data
         self.dataRace = dataRace
         self.root = root
-        self.root.title("Interface Graphique")
 
         self.root.grid_rowconfigure(1, weight=1)
 
@@ -237,8 +235,6 @@ class Application:
         self.__scrollable_frame.onFrameConfigure(None)
 
 
-
-
     def remove_bo(self):
         dialog = DeleteBo(self.root)
         self.root.wait_window(dialog)
@@ -268,12 +264,7 @@ class Application:
         self.remove_elements()
         menu = main.Menu(self.root)
 
-
-
-
 if __name__ == "__main__":
-    #data = json_manip.make_data()
-
     root = tk.Tk()
 
     screen_width = root.winfo_screenwidth()

@@ -43,6 +43,7 @@ class Terran:
 		Marine			= 'Marine.jpg'
 		Medivac			= 'Medivac.jpg'
 		MULE			= 'MULE.jpg'
+		Reaper			= 'Reaper.jpg'
 
 	class Upgrade:
 		Advanced_Ballistics			= 'Advanced_Ballistics.jpg'

@@ -24,52 +24,57 @@ class BoImage:
 
         self.__time.config(font=("Ubuntu Light", 44))
         self.__suply.config(font=("Ubuntu Light", 44))
+            
+        self.image = None
 
-    def execute(self):
+    def execute(self, open_image=False):
         size  = int((self.__root.winfo_width()/5.0)*0.9)
 
         if size < 10:
             size = 128
 
-        image = None
-        ctime = ""
-        ctext = ""
-        
-        if self.__posi >= 0 and self.__posi < len(self.__bo):
-            image = Image.open(StructToPaths(self.__bo[self.__posi][2]))
-            
-            ctime = self.__bo[self.__posi][0].encode()
-            ctext = str(self.__bo[self.__posi][1])
-        else:
-            image = Image.open("./Black.jpg")
+        if open_image == True or self.image == None:
             ctime = ""
             ctext = ""
             
-        print(image.size, (size))
+            if self.__posi >= 0 and self.__posi < len(self.__bo):
+                self.image = Image.open(StructToPaths(self.__bo[self.__posi][2]))
+                
+                ctime = self.__bo[self.__posi][0].encode()
+                ctext = str(self.__bo[self.__posi][1])
+            else:
+                self.image = Image.open("./Black.jpg")
+                ctime = ""
+                ctext = ""
+                
+            print(self.image.size, (size))
 
-        if image.size[0] == image.size[1]:
-            image = image.resize((size, size))
-        elif image.size[0] > image.size[1]:
-            image = image.resize((size, int(size*image.size[1]/image.size[0])))
+            if self.image.size[0] == self.image.size[1]:
+                self.image = self.image.resize((size, size))
+            elif self.image.size[0] > self.image.size[1]:
+                self.image = self.image.resize((size, int(size*self.image.size[1]/self.image.size[0])))
 
-            nouvelle_image = Image.new("RGB", (size, size), color="black")
-            nouvelle_image.paste(image, (0, int((size - image.size[1])/3)))
-            image = nouvelle_image
-        elif image.size[0] < image.size[1]:
-            image = image.resize((int(size*image.size[0]/image.size[1]), size))
+                nouvelle_image = Image.new("RGB", (size, size), color="black")
+                nouvelle_image.paste(self.image, (0, int((size - self.image.size[1])/3)))
+                self.image = nouvelle_image
+            elif self.image.size[0] < self.image.size[1]:
+                self.image = self.image.resize((int(size*self.image.size[0]/self.image.size[1]), size))
 
-            nouvelle_image = Image.new("RGB", (size, size), color="black")
-            nouvelle_image.paste(image, (int((size - image.size[0])/3), 0))
-            image = nouvelle_image
+                nouvelle_image = Image.new("RGB", (size, size), color="black")
+                nouvelle_image.paste(self.image, (int((size - self.image.size[0])/3), 0))
+                self.image = nouvelle_image
 
-        self.current_images = ImageTk.PhotoImage(image)
+            self.__time["text"] = ctime
+            self.__suply["text"] = ctext
+        else:
+            self.image.resize((size, size))
+
+        self.current_images = ImageTk.PhotoImage(self.image)
         self.__image.configure(image=self.current_images)
 
-        self.__time["text"] = ctime
-        self.__suply["text"] = ctext
 
     def advance(self):
         self.__posi += 1
-        self.execute()
+        self.execute(open_image=True)
 
 

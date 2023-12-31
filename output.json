@@ -823,5 +823,10 @@
         "name": "Neural_Parasite",
         "race": "z",
         "type": "p"
+    },
+    "Reaper.jpg": {
+        "name": "Reaper",
+        "race": "t",
+        "type": "u"
     }
 }

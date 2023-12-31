@@ -17,7 +17,6 @@ import json_manip
 
 import main
 
-
 class ImageChangerApp:
     def resize(self, event):
         if event.widget == self.root and \
@@ -59,8 +58,8 @@ class ImageChangerApp:
         self.__continue = True
 
         tk.Label(self.root, text="Press control key to start ! Or press echap to cancel", font=("Ubuntu Light", 34), bg=DARK_BACKGROUND_COLOR, fg=TEXT_COLOR).pack()
-
         self.root.update_idletasks()  # Force update
+
 
         with keyboard.Events() as events:
             for event in events:
@@ -102,77 +101,6 @@ class ImageChangerApp:
 
         self.root.after(50, self.change_images_periodically)  # Change images every 5 seconds
 
-
-def openFilename(filename):
-    lines = ""
-    with open(filename, "r") as f:
-        lines = f.read().split("\n")
-
-    json_data = json_manip.openJson()
-    bo = []
-    for line in lines:
-        data = line.split(",")
-        if len(data) != 3:
-            print("Error, size not correct :", data)
-            continue
-
-        bo.append([BoTime(int(data[1][:data[1].find(":")]), int(data[1][data[1].find(":") + 1:])), int(data[0]), None])
-        key = data[2]
-
-        name = json_data[key]["name"]
-
-        ctype = None
-
-        if json_data[key]["race"] == 'p':
-            if json_data[key]["type"] == 'u':
-                ctype = getattr(Protoss.Units, name)
-            elif json_data[key]["type"] == 'b':
-                ctype = getattr(Protoss.Structure, name)
-            elif json_data[key]["type"] == 'p':
-                ctype = getattr(Protoss.Upgrade, name)
-        elif json_data[key]["race"] == 't':
-            if json_data[key]["type"] == 'u':
-                ctype = getattr(Terran.Units, name)
-            elif json_data[key]["type"] == 'b':
-                ctype = getattr(Terran.Structure, name)
-            elif json_data[key]["type"] == 'p':
-                ctype = getattr(Terran.Upgrade, name)
-        elif json_data[key]["race"] == 'z':
-            if json_data[key]["type"] == 'u':
-                ctype = getattr(Zerg.Units, name)
-            elif json_data[key]["type"] == 'b':
-                ctype = getattr(Zerg.Structure, name)
-            elif json_data[key]["type"] == 'p':
-                ctype = getattr(Zerg.Upgrade, name)
-        bo[-1][-1] = ctype
-
-    return bo
-
-def openBo():
-    bos = [files for files in os.listdir("./") if files[-4:] == ".csv"]
-    dictbos = {}
-
-    print("Select your bo (enter touch): ")
-    for i in range(len(bos)):
-        print(f"{chr(97 + i)} : {bos[i]}")
-        dictbos[ chr(97 + i) ] = bos[i]
-
-    print("Key seletecd: ")
-    filename = ""
-    with keyboard.Events() as events:
-        for event in events:
-            key = str(event.key)
-            if len(key) == 3:
-                key = key[1]
-
-                if key in dictbos.keys():
-                    filename = dictbos[key]
-                    break
-
-    print("")
-
-    return openFilename(filename), filename
-
 def openBoFilename(filename):
     lines = ""
     with open(filename, "r") as f:
@@ -183,12 +111,16 @@ def openBoFilename(filename):
     for line in lines:
         data = line.split(",")
 
-        bo.append([BoTime(int(data[1]), int(data[2])), int(data[0]), None])
 
         name = data[3]
         key = json_manip.get_key_from_name(name, json_data)
 
         ctype = None
+
+        if key == None:
+            continue
+
+        print(key)
 
         if json_data[key]["race"] == 'p':
             if json_data[key]["type"] == 'u':
@@ -212,34 +144,8 @@ def openBoFilename(filename):
             elif json_data[key]["type"] == 'p':
                 ctype = getattr(Zerg.Upgrade, name)
         
-        bo[-1][-1] = ctype
+        #bo[-1][-1] = ctype
+        bo.append([BoTime(int(data[1]), int(data[2])), int(data[0]), ctype])
+
 
     return bo
- 
-
-
-def on_key_release(key):
-    if key == keyboard.Key.ctrl_r:
-        return False
-
-if __name__ == "__main__":
-    
-    bo, filename = openBo()
-    print(bo)
-
-    print("Wait for key ctrl right to start")
-    with keyboard.Listener(on_release=on_key_release) as listener:
-        listener.join()
-
-    root = tk.Tk()
-
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-
-    # replace either screen_width and screen_height to change the appropriate dimension
-    root.geometry(f"{screen_width}x{screen_height}")
-    root.configure(bg=DARK_BACKGROUND_COLOR)
-
-    root.title(filename)
-    app = ImageChangerApp(root, bo)
-    root.mainloop()
